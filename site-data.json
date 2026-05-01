@@ -1,0 +1,98 @@
+{
+  "brand": {
+    "company": "Urban Room Co., Ltd.",
+    "tagline": "DEVELOP WITH CONFIDENCE",
+    "email": "info@urbanroom.org",
+    "address": "92/18 Mittrapap Rd., Nai Mueang, Mueang Khon Kaen, Khon Kaen 40000",
+    "social": {
+      "youtube": "@Urbanroom2023",
+      "facebook": "urbanroomth",
+      "instagram": "urbanroomstudio"
+    },
+    "copyright": "2020"
+  },
+  "navigation": [
+    { "label": "Expertise", "href": "#expertise" },
+    {
+      "label": "Projects",
+      "href": "#projects",
+      "children": [
+        "Pocket Park",
+        "ISAN Showcase",
+        "School Yard Lunch",
+        "Ban Ped – Safe Road",
+        "Sukhothai Learning Center",
+        "Khon Kaen Innovation District",
+        "Peafowl Learning Center",
+        "Walkable Kangsadan",
+        "Phetchabun City",
+        "Lam Luk Ka City",
+        "Eco Innovation Park"
+      ]
+    },
+    {
+      "label": "Gallery",
+      "href": "#gallery",
+      "children": ["Garden", "Footpath", "Public Transport", "Road", "Video"]
+    },
+    { "label": "Instagram", "href": "https://instagram.com/urbanroomstudio", "external": true },
+    { "label": "Contact", "href": "#contact" },
+    { "label": "Download", "href": "#download" },
+    { "label": "MeVote", "href": "#mevote", "external": true }
+  ],
+  "sections": {
+    "hero": {
+      "tagline": "DEVELOP WITH CONFIDENCE",
+      "body": "Urban Room and partners are pioneers in real estate development and urban content services by applying our multi expertise from various professionals."
+    },
+    "services": [
+      {
+        "title": "Urban Study and City Branding",
+        "description": "Research and studies supporting policy decisions and estate development visions."
+      },
+      {
+        "title": "Master Planning",
+        "description": "Design services for building groups and large real estate projects, including architectural details and participation processes."
+      },
+      {
+        "title": "Feasibility and Market Study",
+        "description": "Financial analysis providing FIRR, EIRR, SROI metrics for investor decision-making."
+      }
+    ],
+    "why_urban_room": [
+      "Experienced team in architectural design and development with understanding of urban trends.",
+      "Collaborative approach with professional partners utilizing deliberative and foresight techniques."
+    ],
+    "partners": [
+      { "name": "3DOT DESIGN", "specialty": "Urban Planning and Urban Design" },
+      { "name": "Z56", "specialty": "Architecture" }
+    ],
+    "contact": {
+      "address": "92/18 Mittrapap Rd., Nai Mueang, Mueang Khon Kaen, Khon Kaen 40000",
+      "email": "info@urbanroom.org",
+      "form_fields": ["name", "email", "message"]
+    }
+  },
+  "projects": [
+    { "title": "Pocket Park", "slug": "pocket-park" },
+    { "title": "ISAN Showcase", "subtitle": "Isan Creative Festival 2023", "slug": "isan-showcase" },
+    { "title": "School Yard Lunch", "slug": "school-yard-lunch" },
+    { "title": "Ban Ped – Safe Road", "slug": "ban-ped-safe-road" },
+    { "title": "Sukhothai Learning Center", "slug": "sukhothai-learning-center" },
+    { "title": "Khon Kaen Innovation District", "slug": "khon-kaen-innovation-district" },
+    { "title": "Peafowl Learning Center", "slug": "peafowl-learning-center" },
+    { "title": "Walkable Kangsadan", "slug": "walkable-kangsadan" },
+    { "title": "Phetchabun City", "slug": "phetchabun-city" },
+    { "title": "Lam Luk Ka City", "slug": "lam-luk-ka-city" },
+    { "title": "Eco Innovation Park", "slug": "eco-innovation-park" }
+  ],
+  "gallery_categories": ["Garden", "Footpath", "Public Transport", "Road", "Video"],
+  "design": {
+    "style": "minimalist",
+    "background": "light",
+    "text": "dark",
+    "typography": "modern sans-serif",
+    "logo_position": "top-left",
+    "logo_color": "dark/navy"
+  }
+}
