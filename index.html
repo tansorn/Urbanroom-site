@@ -128,10 +128,35 @@
   .ur-card-hover { transition: transform 320ms var(--ur-ease); }
   .ur-card-hover:hover { transform: translateY(-4px); }
 
+  /* ---------- Responsive layout ---------- */
+  .ur-expertise        { padding: 80px 40px; }
+  .ur-expertise-intro  { display: grid; grid-template-columns: 1fr 2.2fr; gap: 56px; align-items: baseline; margin-bottom: 36px; }
+  .ur-grid-svc         { display: grid; grid-template-columns: repeat(5, 1fr); gap: 32px; border-top: 1px solid var(--ur-ink); padding-top: 24px; }
+  .ur-grid-proj        { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 32px; row-gap: 72px; }
+  .ur-grid-chan        { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 40px; row-gap: 64px; }
+  .ur-footer-grid      { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; align-items: start; }
+  .ur-drawer-body      { padding: 48px 56px 64px; }
+  .ur-nav-toggle       { display: none; }
+
   @media (max-width: 900px) {
     .ur-section        { padding: 72px 24px; }
     .ur-section__head  { margin-bottom: 32px; }
     .ur-section__title { font-size: 26px; }
+    .ur-expertise      { padding: 64px 24px; }
+    .ur-expertise-intro { grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px; }
+    .ur-grid-svc       { grid-template-columns: repeat(3, 1fr); gap: 30px 24px; }
+    .ur-grid-proj      { grid-template-columns: repeat(2, 1fr); row-gap: 52px; }
+    .ur-footer-grid    { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .ur-nav-desktop    { display: none !important; }
+    .ur-nav-toggle     { display: inline-flex !important; }
+  }
+
+  @media (max-width: 600px) {
+    .ur-grid-svc       { grid-template-columns: repeat(2, 1fr); }
+    .ur-grid-proj      { grid-template-columns: 1fr; row-gap: 44px; }
+    .ur-grid-chan      { grid-template-columns: 1fr; }
+    .ur-footer-grid    { grid-template-columns: 1fr; gap: 28px; }
+    .ur-drawer-body    { padding: 32px 22px 48px; }
   }
 </style>
 </head>
@@ -218,12 +243,23 @@ function Plate({ ratio = "16/10", tone = "navy", src, overlay, fill }) {
     stone: "linear-gradient(180deg,#b8b0a2 0%,#766e60 100%)"
   };
   const bg = src
-    ? { backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" }
+    ? { backgroundImage: `url(${src}), ${tones[tone] || tones.navy}`, backgroundSize: "cover, cover", backgroundPosition: "center, center", backgroundRepeat: "no-repeat, no-repeat" }
     : { background: tones[tone] || tones.navy };
   return (
     <div style={{ aspectRatio: ratio === "auto" ? undefined : ratio, height: ratio === "auto" ? "100%" : undefined, ...bg, position: "relative", overflow: "hidden", width: "100%" }}>
       {fill}
       {overlay}
+    </div>);
+
+}
+
+/* Typographic cover for film entries — client name as text, no face thumbnail */
+function coverOverlay(title, kicker, big) {
+  return (
+    <div style={{ position: "absolute", inset: 0, padding: big ? "44px 48px" : "20px 22px", display: "flex", flexDirection: "column", justifyContent: "flex-end", background: "linear-gradient(180deg, rgba(20,18,15,0) 45%, rgba(20,18,15,0.55) 100%)" }}>
+      {kicker &&
+      <div style={{ fontFamily: "var(--ur-mono)", fontSize: big ? 11 : 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)", marginBottom: big ? 12 : 7 }}>{kicker}</div>}
+      <div style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: big ? 40 : 22, lineHeight: 1.06, letterSpacing: "-0.025em", color: "#fff" }}>{title}</div>
     </div>);
 
 }
@@ -320,13 +356,15 @@ const NAV = [
 
 const SERVICES = [
 { n: "01", title: "Urban Study & City Branding",
-  body: "Research and studies that support policy decisions and inform estate-development visions for cities and districts." },
+  body: "Research that informs policy and shapes how a city or district sees itself." },
 { n: "02", title: "Master Planning",
-  body: "Design for building groups and large real-estate projects — including architectural detail and participation processes." },
+  body: "Plans for districts and large developments — down to the architecture, with the people who live there in the room." },
 { n: "03", title: "Feasibility & Market Study",
-  body: "Financial analysis providing FIRR, EIRR, and SROI metrics to support investor and stakeholder decision-making." },
+  body: "The numbers behind the vision — FIRR, EIRR, and SROI that tell investors whether it holds." },
 { n: "04", title: "Content & Media",
-  body: "Films, talks, and editorial content about cities and the built environment — published on the Urban Room channel and others." }];
+  body: "Films, talks, and writing on cities — on the Urban Room channel and for clients." },
+{ n: "05", title: "Software Development",
+  body: "Custom software, built and supported end to end — for organisations that need a tool, not a prototype." }];
 
 
 const PLAYLISTS = [
@@ -341,7 +379,7 @@ const PROJECTS = [
   cardImg: "assets/images/projects/khon-kaen-innovation-district/card.jpg", heroImg: "assets/images/projects/khon-kaen-innovation-district/hero.jpg",
   role: ["Master plan", "Urban design"], client: "NIA & Healthy Sapce Forum", area: "Nongwang Trachu Park and Sichan District",
   desc: "A district plan reframing the learning comunity as a working innovation precinct. Mixed-use blocks sit on a porous public spine that doubles as flood storage and a learning circuit for the city's universitie." },
-{ title: "Walkable Kangsadan", subtitle: "Footpath retrofit and street design", year: "2023", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "earth",
+{ title: "Walkable Kangsadan", subtitle: "Footpath retrofit and street design", year: "2023", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "earth", featured: 1,
   cardImg: "assets/images/projects/walkable-kangsadan/card.jpg", heroImg: "assets/images/projects/walkable-kangsadan/hero.jpg",
   role: ["Street design", "Public engagement"], client: "CEA Khon Kaen", area: "Kangsadan Neighbourhood",
   desc: "A 1.2 km retrofit of the city's most-walked street \u2014 widened sidewalks, calmed crossings, sequenced trees, and seating designed with the shop owners who use the block every day." },
@@ -349,7 +387,7 @@ const PROJECTS = [
   cardImg: "assets/images/projects/isan-showcase/card.jpg", heroImg: "assets/images/projects/isan-showcase/hero.jpg",
   role: ["Exhibition design", "Wayfinding"], client: "CEA Khon Kaen", area: "Treasury Museum",
   desc: "A festival-scale exhibition mapping Isan's craft, agriculture, and city-making lineage \u2014 staged at the Treasury Museum with a wayfinding and lighting systems." },
-{ title: "Sukhothai Learning Center", subtitle: "Civic learning and heritage hub", year: "2023", city: "Sukhothai", tag: "ARCHITECTURE", tone: "sand",
+{ title: "Sukhothai Learning Center", subtitle: "Civic learning and heritage hub", year: "2023", city: "Sukhothai", tag: "ARCHITECTURE", tone: "sand", featured: 3,
   cardImg: "assets/images/projects/sukhothai-learning-center/card.jpg", heroImg: "assets/images/projects/sukhothai-learning-center/hero.jpg",
   role: ["Architecture", "Heritage strategy"], client: "Sukhothai PAO", area: "",
   desc: "A new civic building threaded into the heritage edge of old Sukhothai \u2014 long roofs, generous shade, and reading rooms that open onto a teaching landscape of the city's water lineage." },
@@ -361,15 +399,70 @@ const PROJECTS = [
   cardImg: "assets/images/projects/pocket-park/card.jpg", heroImg: "assets/images/projects/pocket-park/hero.jpg",
   role: ["Landscape", "Co-design"], client: "Khon Kaen Municipality", area: "",
   desc: "A residual lot turned into a neighbourhood pocket park \u2014 designed in three co-design sessions with the immediate residents, who chose every plant, every bench, and the rule against fencing." },
-{ title: "Phetchabun City", subtitle: "Comprehensive Planing", year: "2022", city: "Phetchabun", tag: "CITY STUDY", tone: "navy",
+{ title: "Phetchabun Comprehensive Plan", subtitle: "Comprehensive Planing", year: "2022", city: "Phetchabun", tag: "CITY STUDY", tone: "navy",
   cardImg: "assets/images/projects/phetchabun-city/card.jpg", heroImg: "assets/images/projects/phetchabun-city/hero.jpg",
   role: ["Urban planning"], client: "Phetchabun Municipality",
   desc: "A comprehensive plan reframing Phetchabun around its highland identity \u2014 cool climate, slow agriculture, mountain culture \u2014 with policy recommendations on activities and developments." },
-{ title: "Lam Luk Ka City", subtitle: "Comprehensive Planing", year: "2021", city: "Pathum Thani", tag: "MASTER PLAN", tone: "earth",
+{ title: "Lam Luk Ka Comprehensive Plan", subtitle: "Comprehensive Planing", year: "2021", city: "Pathum Thani", tag: "CITY STUDY", tone: "earth",
   cardImg: "assets/images/projects/lam-luk-ka-city/card.jpg", heroImg: "assets/images/projects/lam-luk-ka-city/hero.jpg",
   role: ["Urban planning"], client: "Bueng Yitho Municipality", area: "540 ha",
-  desc: "A district plan for a fast-suburbanising edge of Bangkok \u2014 protecting the canal grid as the spatial spine and weaving new residential blocks into it as a slow-growth alternative to gated estates with policy recommendations on activities and developments." }];
+  desc: "A district plan for a fast-suburbanising edge of Bangkok \u2014 protecting the canal grid as the spatial spine and weaving new residential blocks into it as a slow-growth alternative to gated estates with policy recommendations on activities and developments." },
+{ title: "School Yard Lunch", subtitle: "School-lunch supply system & exhibition", year: "2022", city: "Khon Kaen", tag: "EXHIBITION", tone: "rose",
+  cardImg: "assets/images/projects/school-yard-lunch/card.jpg", heroImg: "assets/images/projects/school-yard-lunch/hero.jpg",
+  role: ["Exhibition design", "Project management"], client: "CEA Khon Kaen", area: "",
+  desc: "A pilot \u201cLunch & Learn\u201d program rebuilding the school-lunch supply chain around local farmers and seasonal ingredients \u2014 staged as an exhibition at Isan Creative Festival 2022 to teach students where their food comes from." },
+{ title: "Ban Ped Safe Road", subtitle: "Road safety and street upgrade", year: "2022", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "grey",
+  cardImg: "assets/images/projects/ban-ped-safe-road/card.jpg", heroImg: "assets/images/projects/ban-ped-safe-road/hero.jpg",
+  role: ["Street design", "Road safety"], client: "Ban Ped Subdistrict Municipality", area: "",
+  desc: "A subdistrict-wide program upgrading road surfaces and crossings where physical road conditions drive accident risk \u2014 safer streets that also lift the everyday landscape of Ban Ped." },
+{ title: "Peafowl Learning Center", subtitle: "Cultural learning center master plan", year: "2023", city: "Northern Thailand", tag: "MASTER PLAN", tone: "forest",
+  cardImg: "assets/images/projects/peafowl-learning-center/card.jpg", heroImg: "assets/images/projects/peafowl-learning-center/hero.jpg",
+  role: ["Master plan"], client: "", area: "",
+  desc: "A master plan for a learning center built around the peacock as a regional cultural symbol \u2014 a prototype public space designed to be replicated across the four northern provinces of the peafowl group." },
 
+{ title: "At Samat Old Town", subtitle: "Old-town revitalisation master plan", year: "2022", city: "Roi Et", tag: "MASTER PLAN", tone: "stone",
+  cardImg: "assets/images/projects/kao-mueang-at-samat/card.jpg", heroImg: "assets/images/projects/kao-mueang-at-samat/hero.jpg",
+  role: ["Master plan", "Public engagement"], client: "At Samat Subdistrict Municipality", area: "Nong Hu Ling old town",
+  desc: "A plan to revive the old-town district around Nong Hu Ling \u2014 run as a public participation process and carried from concept to master plan to a set of actionable sub-projects the municipality can build." },
+{ title: "At Samat Fresh Market", subtitle: "Public market design", year: "2022", city: "Roi Et", tag: "ARCHITECTURE", tone: "earth",
+  cardImg: "assets/images/projects/talat-sot-at-samat/card.jpg", heroImg: "assets/images/projects/talat-sot-at-samat/hero.jpg",
+  role: ["Public engagement", "Architecture", "Permit drawings"], client: "At Samat Subdistrict Municipality", area: "",
+  desc: "A redesign of the municipal fresh market built on a participation process \u2014 gathering vendor and resident input, designing the market, and carrying it through to permit-ready construction drawings." },
+{ title: "Ruen Rom Street", subtitle: "Walkable street design", year: "2022", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "navy", featured: 5,
+  cardImg: "assets/images/projects/thanon-ruen-rom/card.jpg", heroImg: "assets/images/projects/thanon-ruen-rom/hero.jpg",
+  role: ["Street design", "Public engagement"], client: "Khon Kaen Municipality & UDDC", area: "",
+  desc: "A street-design study for Ruen Rom Street under the GoodWalk \u201cWalkable City\u201d program \u2014 led with Khon Kaen Municipality, UDDC, and ThaiHealth, run through more than eleven public forums and site sessions toward a street that is safer to walk and drive, then taken to the city council." },
+{ title: "Ayutthaya Comprehensive Plan", subtitle: "City comprehensive plan", year: "", city: "Ayutthaya", tag: "CITY STUDY", tone: "sand", featured: 2,
+  cardImg: "assets/images/projects/ayutthaya-comprehensive-plan/card.jpg", heroImg: "assets/images/projects/ayutthaya-comprehensive-plan/hero.jpg",
+  role: ["Land-use planning", "Planning regulations"], client: "Department of Public Works and Town & Country Planning", area: "",
+  desc: "A comprehensive plan prepared as urban-planning specialist to the DPT \u2014 drafting the land-use plan and the accompanying planning regulations that govern how the city of Ayutthaya grows." },
+{ title: "Lamphun Comprehensive Plan", subtitle: "City comprehensive plan", year: "", city: "Lamphun", tag: "CITY STUDY", tone: "grey",
+  cardImg: "assets/images/projects/lamphun-comprehensive-plan/card.jpg", heroImg: "assets/images/projects/lamphun-comprehensive-plan/hero.jpg",
+  role: ["Land-use planning", "Planning regulations"], client: "Department of Public Works and Town & Country Planning", area: "",
+  desc: "A comprehensive plan prepared as urban-planning specialist to the DPT \u2014 drafting the land-use plan and the accompanying planning regulations that govern how the city of Lamphun grows." },
+{ title: "Lifestyle Mall Masterplan", subtitle: "Community / lifestyle retail destination", year: "", city: "", tag: "FEASIBILITY", tone: "rose",
+  cardImg: "assets/images/projects/lifestyle-mall/card.jpg", heroImg: "assets/images/projects/lifestyle-mall/hero.jpg",
+  role: ["Vision & programming", "Master planning", "Design guidelines", "Investment feasibility"], client: "Private developer", area: "",
+  desc: "Masterplanning and feasibility for a privately developed retail destination in the community- and lifestyle-mall format. Urban Room set the vision, built the design programme, planned the site, wrote the detailed design guidelines, and tested the investment case end to end." },
+{ title: "Motorsport Lifestyle Destination", subtitle: "Racing circuit & automotive-led mixed use", year: "", city: "", tag: "FEASIBILITY", tone: "navy", featured: 4,
+  cardImg: "assets/images/projects/motorsport-destination/card.jpg", heroImg: "assets/images/projects/motorsport-destination/hero.jpg",
+  role: ["Vision & programming", "Master planning", "Design guidelines", "Investment feasibility"], client: "Private developer", area: "",
+  desc: "Masterplanning and feasibility for a private mixed-use destination built around a motor-racing circuit and automotive services. The same end-to-end scope \u2014 vision, design programme, site plan, detailed design guidelines, and investment feasibility \u2014 shaped around motorsport and car-centric uses." },
+{ title: "Bedrock Analytics", subtitle: "Brand film series", year: "", city: "", tag: "FILM", tone: "navy",
+  cardImg: "assets/images/projects/bedrock-analytics/card.jpg", heroImg: "assets/images/projects/bedrock-analytics/hero.jpg",
+  role: ["Concept", "Script", "Production"], client: "Bedrock Analytics", area: "",
+  desc: "A series of short brand films \u2014 translating a data-and-analytics business into clear, watchable stories.",
+  clips: [{ yt: "HwRvGgScP5I" }, { yt: "xM_NkMoQ8aU" }, { yt: "tPKRtew9Y5w" }] },
+{ title: "At Samat Municipality", subtitle: "City film", year: "", city: "Roi Et", tag: "FILM", tone: "earth",
+  cardImg: "assets/images/projects/at-samat-municipality/card.jpg", heroImg: "assets/images/projects/at-samat-municipality/hero.jpg",
+  role: ["Concept", "Script", "Production"], client: "At Samat Municipality", area: "",
+  desc: "A short film for the municipality \u2014 telling the town's story to its own people and to visitors.",
+  clips: [{ yt: "pYe-jlwVaS4" }] },
+{ title: "Khon Kaen Mayoral Campaign", subtitle: "Campaign film", year: "", city: "Khon Kaen", tag: "FILM", tone: "rose", featured: 6,
+  cardImg: "assets/images/projects/khon-kaen-mayoral-campaign/card.jpg", heroImg: "assets/images/projects/khon-kaen-mayoral-campaign/hero.jpg",
+  role: ["Concept", "Script", "Production"], client: "Mayoral candidate, Khon Kaen", area: "",
+  desc: "A campaign film for a candidate for Mayor of Khon Kaen \u2014 built around a vision for the city.",
+  clips: [{ yt: "07oIpiFNwWs" }, { fb: "574282765685487" }, { fb: "682949024318858" }] }];
 
 /* ============================ DETAIL VIEWS (inside Drawer) ============================ */
 function NavMenu({ active, onNav }) {
@@ -416,22 +509,38 @@ function ProjectDetail({ p }) {
       <dd style={{ margin: 0 }}>{v}</dd>
     </>;
 
+  const isFilm = !!p.clips;
   return (
     <article>
-      <Plate tone={p.tone} src={p.heroImg} ratio="16/10" />
-      <div style={{ padding: "48px 56px 64px" }}>
-        <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ur-ink-3)" }}>{p.tag} · {p.year}</div>
+      {isFilm
+      ? <Plate tone={p.tone} src={p.heroImg} ratio="16/10" overlay={coverOverlay(p.client, p.subtitle, true)} />
+      : <Plate tone={p.tone} src={p.heroImg} ratio="16/10" />}
+      <div className="ur-drawer-body">
+        <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ur-ink-3)" }}>{[p.tag, p.year].filter(Boolean).join(" · ")}</div>
         <h2 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.03em", lineHeight: 1.05, margin: "14px 0 10px" }}>{p.title}</h2>
         <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, color: "var(--ur-ink-2)", margin: "0 0 32px" }}>{p.subtitle}</p>
-        <div style={{ borderTop: "1px solid var(--ur-ink)", paddingTop: 26, marginBottom: 32 }}>
-          <dl style={{ display: "grid", gridTemplateColumns: "140px 1fr", rowGap: 14, margin: 0, fontFamily: "var(--ur-sans)", fontSize: 14, alignItems: "baseline" }}>
-            <Row k="Client" v={p.client} />
-            <Row k="Location" v={p.city} />
-            {p.area && <Row k="Area" v={p.area} />}
-            <Row k="Our role" v={p.role && p.role.join(" \u00b7 ")} />
-          </dl>
-        </div>
-        <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--ur-ink)", margin: 0 }}>{p.desc}</p>
+        {isFilm ?
+        <>
+          <div style={{ borderTop: "1px solid var(--ur-line)", paddingTop: 16, marginBottom: 32, display: "flex", flexWrap: "wrap", gap: "4px 18px", fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--ur-ink-3)" }}>
+              {p.city && <span>{p.city}</span>}
+              {p.role && <span>{p.role.join(" \u00b7 ")}</span>}
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: p.clips.length > 1 ? "repeat(2, 1fr)" : "1fr", gap: 18 }}>
+              {p.clips.map((c, i) => <FilmCard key={i} clip={c} tone={p.tone} label={p.client} />)}
+            </div>
+            {p.desc && <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--ur-ink)", margin: "32px 0 0" }}>{p.desc}</p>}
+          </> :
+        <>
+          <div style={{ borderTop: "1px solid var(--ur-ink)", paddingTop: 26, marginBottom: 32 }}>
+              <dl style={{ display: "grid", gridTemplateColumns: "140px 1fr", rowGap: 14, margin: 0, fontFamily: "var(--ur-sans)", fontSize: 14, alignItems: "baseline" }}>
+                <Row k="Client" v={p.client} />
+                {p.city && <Row k="Location" v={p.city} />}
+                {p.area && <Row k="Area" v={p.area} />}
+                <Row k="Our role" v={p.role && p.role.join(" \u00b7 ")} />
+              </dl>
+            </div>
+            <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--ur-ink)", margin: 0 }}>{p.desc}</p>
+          </>}
         <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--ur-line)" }}>
           <a href={`mailto:info@urbanroom.org?subject=${encodeURIComponent("About " + p.title)}`}
           style={{ display: "inline-flex", alignItems: "center", gap: 10,
@@ -448,7 +557,7 @@ function ProjectDetail({ p }) {
 Object.assign(window, { ProjectDetail });
 
 /* ============================ HEADER ============================ */
-function Header({ active = "Expertise", onNav, onLight = false }) {
+function Header({ active = "Expertise", onNav, onMenu, onLight = false }) {
   const fg = onLight ? "#fff" : "var(--ur-ink)";
   const dim = onLight ? "rgba(255,255,255,0.65)" : "var(--ur-ink-3)";
   const border = onLight ? "#fff" : "var(--ur-ink)";
@@ -464,7 +573,7 @@ function Header({ active = "Expertise", onNav, onLight = false }) {
            style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Wordmark size={26} color={fg} />
         </a>
-        <nav style={{ display: "flex", gap: 32, marginLeft: "auto" }}>
+        <nav className="ur-nav-desktop" style={{ display: "flex", gap: 32, marginLeft: "auto" }}>
           {NAV.map(n => (
             <a key={n.label} href={n.href} onClick={(e) => { e.preventDefault(); onNav?.(n.label); }}
                style={{
@@ -476,6 +585,11 @@ function Header({ active = "Expertise", onNav, onLight = false }) {
                }}>{n.label}</a>
           ))}
         </nav>
+        <button className="ur-nav-toggle" onClick={onMenu} aria-label="Open menu"
+          style={{ marginLeft: "auto", alignItems: "center", justifyContent: "center",
+            width: 40, height: 40, padding: 0, background: "transparent", border: 0, cursor: "pointer", color: fg }}>
+          {Icon.menu(22)}
+        </button>
       </div>
     </header>
   );
@@ -522,17 +636,17 @@ function Hero() {
 /* ============================ EXPERTISE — compact strip ============================ */
 function Expertise() {
   return (
-    <section id="expertise" style={{ background: "var(--ur-bg)", padding: "80px 40px", borderTop: "1px solid var(--ur-line)", borderBottom: "1px solid var(--ur-line)" }}>
+    <section id="expertise" className="ur-expertise" style={{ background: "var(--ur-bg)", borderTop: "1px solid var(--ur-line)", borderBottom: "1px solid var(--ur-line)" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2.2fr", gap: 56, alignItems: "baseline", marginBottom: 36 }}>
+        <div className="ur-expertise-intro">
           <h2 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 32, letterSpacing: "-0.025em", lineHeight: 1.05, margin: 0 }}>
             What&nbsp;we&nbsp;do.
           </h2>
           <p style={{ fontFamily: "var(--ur-sans)", fontSize: 15, color: "var(--ur-ink-2)", lineHeight: 1.55, margin: 0, maxWidth: 64 + "ch" }}>
-            Four practices that move a city from idea to a buildable plan — research, design, finance, and the editorial work that surrounds it.
+            Five practices. Urban research and design at the core — with the finance, media, and software that carry the work into the world.
           </p>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, borderTop: "1px solid var(--ur-ink)", paddingTop: 24 }}>
+        <div className="ur-grid-svc">
           {SERVICES.map((s) =>
           <div key={s.n} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <span style={{ fontFamily: "var(--ur-mono)", fontSize: 11, color: "var(--ur-ink-3)", letterSpacing: "0.12em" }}>{s.n}</span>
@@ -547,31 +661,61 @@ function Expertise() {
 }
 
 /* ============================ PROJECTS ============================ */
+/* tag filter order — only tags present in PROJECTS are shown */
+const TAG_ORDER = ["MASTER PLAN", "CITY STUDY", "PUBLIC REALM", "ARCHITECTURE", "EXHIBITION", "FEASIBILITY", "FILM"];
+
+function FilterChip({ active, onClick, children }) {
+  return (
+    <button onClick={onClick} style={{
+      fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase",
+      padding: "7px 13px", borderRadius: 999, cursor: "pointer", whiteSpace: "nowrap",
+      border: `1px solid ${active ? "var(--ur-ink)" : "var(--ur-line-strong)"}`,
+      background: active ? "var(--ur-ink)" : "transparent",
+      color: active ? "#fff" : "var(--ur-ink-3)",
+      transition: "all 180ms var(--ur-ease)"
+    }}>{children}</button>);
+}
+
 function ProjectGrid({ onOpen }) {
   const [showAll, setShowAll] = React.useState(false);
-  const list = showAll ? PROJECTS : PROJECTS.slice(0, 6);
+  const [active, setActive] = React.useState("All");
+  const filters = React.useMemo(() => ["All", ...TAG_ORDER.filter((t) => PROJECTS.some((p) => p.tag === t))], []);
+  const featured = React.useMemo(() => PROJECTS.filter((p) => p.featured).sort((a, b) => a.featured - b.featured), []);
+  const matched = active === "All" ? PROJECTS : PROJECTS.filter((p) => p.tag === active);
+  const list = active === "All" && !showAll ? featured : matched;
+  const setFilter = (t) => { setActive(t); setShowAll(false); };
   return (
     <section id="projects" className="ur-section" style={{ background: "var(--ur-bg-soft)" }}>
       <div className="ur-section__inner">
-        <div className="ur-section__head">
+        <div className="ur-section__head" style={{ alignItems: "center" }}>
           <h2 className="ur-section__title">Selected projects.</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, flex: "1 1 auto" }}>
+            {filters.map((t) =>
+            <FilterChip key={t} active={active === t} onClick={() => setFilter(t)}>{t}</FilterChip>
+            )}
+          </div>
+          {active === "All" ?
           <button onClick={() => setShowAll((v) => !v)}
           style={{ background: "transparent", border: 0, padding: 0, cursor: "pointer",
-            fontFamily: "var(--ur-sans)", fontWeight: 500, fontSize: 13, color: "var(--ur-ink)",
+            fontFamily: "var(--ur-sans)", fontWeight: 500, fontSize: 13, color: "var(--ur-ink)", whiteSpace: "nowrap",
             borderBottom: "1px solid var(--ur-ink)", paddingBottom: 3,
             display: "inline-flex", alignItems: "center", gap: 8 }}>
             {showAll ? "Show selected" : `All projects (${PROJECTS.length})`} {Icon.arrow(14)}
-          </button>
+          </button> :
+          <span style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--ur-ink-3)", whiteSpace: "nowrap" }}>
+            {matched.length} project{matched.length > 1 ? "s" : ""}
+          </span>}
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", columnGap: 32, rowGap: 72 }}>
+        <div className="ur-grid-proj">
           {list.map((p) =>
           <button key={p.title} onClick={() => onOpen?.(p)} className="ur-card-hover"
           style={{ display: "flex", flexDirection: "column", gap: 20, textDecoration: "none",
             color: "inherit", background: "transparent", border: 0, padding: 0, cursor: "pointer", textAlign: "left" }}>
-              <Plate tone={p.tone} src={p.cardImg} ratio="4/5" />
+              <Plate tone={p.tone} src={p.cardImg} ratio="4/5"
+                overlay={p.clips ? coverOverlay(p.client, null, false) : null} />
               <div>
-                <h3 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 19, color: "var(--ur-ink)", margin: "0 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>{p.title}</h3>
-                <p style={{ fontFamily: "var(--ur-mono)", fontSize: 11, color: "var(--ur-ink-3)", margin: 0, letterSpacing: "0.06em", textTransform: "uppercase" }}>{p.city} · {p.year}</p>
+                <h3 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 19, color: "var(--ur-ink)", margin: "0 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>{p.clips ? p.subtitle : p.title}</h3>
+                <p style={{ fontFamily: "var(--ur-mono)", fontSize: 11, color: "var(--ur-ink-3)", margin: 0, letterSpacing: "0.06em", textTransform: "uppercase" }}>{p.clips ? "Film" : [p.city, p.year].filter(Boolean).join(" · ")}</p>
               </div>
             </button>
           )}
@@ -590,7 +734,7 @@ function Channel() {
           <h2 className="ur-section__title">On the channel.</h2>
           <a href="https://www.youtube.com/@Urbanroom2023" target="_blank" rel="noreferrer" className="ur-section__link">Subscribe on YouTube {Icon.arrow(14)}</a>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", columnGap: 40, rowGap: 64 }}>
+        <div className="ur-grid-chan">
           {PLAYLISTS.map((p) =>
           <a key={p.title} href={`https://www.youtube.com/playlist?list=${p.list}`} target="_blank" rel="noreferrer" className="ur-card-hover"
           style={{ display: "flex", flexDirection: "column", gap: 20, textDecoration: "none", color: "inherit" }}>
@@ -623,6 +767,32 @@ function Channel() {
 
 }
 
+/* ============================ FILM CARD — clip thumbnail (YouTube or Facebook), used in project drawer ============================ */
+function FilmCard({ clip, tone = "navy", label }) {
+  const isFb = !!clip.fb;
+  const href = isFb ? `https://www.facebook.com/reel/${clip.fb}` : `https://www.youtube.com/watch?v=${clip.yt}`;
+  const src = clip.img || (clip.yt ? `https://i.ytimg.com/vi/${clip.yt}/maxresdefault.jpg` : null);
+  const platform = isFb ? "Facebook · Reel" : "YouTube";
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className="ur-card-hover"
+    style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+      <div style={{ position: "relative" }}>
+        <Plate tone={tone} src={src} ratio="16/9"
+          overlay={!src ? coverOverlay(label, platform, false) : null} />
+        <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(27,26,23,0.12)" }}>
+          <div style={{ width: 60, height: 60, borderRadius: 999, background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 10px 30px -14px rgba(0,0,0,0.5)" }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ur-ink)"><path d="M8 5v14l11-7L8 5z" /></svg>
+          </div>
+        </div>
+        {src &&
+        <span style={{ position: "absolute", left: 12, bottom: 12, fontFamily: "var(--ur-mono)", fontSize: 10, letterSpacing: "0.08em", color: "#fff", background: "rgba(27,26,23,0.78)", padding: "3px 8px", textTransform: "uppercase" }}>
+          {platform}
+        </span>}
+      </div>
+    </a>);
+
+}
+
 /* ============================ PARTNERS / WHY ============================ */
 function Partners() {
   return (
@@ -652,7 +822,7 @@ function Footer() {
     <footer id="contact" style={{ background: "var(--ur-ink)", color: "rgba(255,255,255,0.85)" }}>
       <div style={{ maxWidth: 1320, margin: "0 auto", padding: "96px 40px 40px" }}>
         {/* primary contact band */}
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 48, alignItems: "start", paddingBottom: 64, borderBottom: "1px solid rgba(255,255,255,0.14)" }}>
+        <div className="ur-footer-grid" style={{ paddingBottom: 64, borderBottom: "1px solid rgba(255,255,255,0.14)" }}>
           <div>
             <Wordmark size={32} color="#fff" />
             <p style={{ fontFamily: "var(--ur-sans)", fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.72)", maxWidth: 36 + "ch", margin: "24px 0 0" }}>
@@ -679,7 +849,7 @@ function Footer() {
           </div>
         </div>
         {/* lower row */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 32, paddingTop: 28, fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: "10px 32px", paddingTop: 28, fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
           <span>urbanROOM Co., Ltd. · Khon Kaen, TH</span>
           <span>© 2026 · EST. 2020</span>
         </div>
@@ -705,16 +875,18 @@ function scrollToId(id) {
 function App() {
   const [active, setActive] = useState("Expertise");
   const [project, setProject] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNav = (label) => {
     setActive(label);
+    setMenuOpen(false);
     const id = NAV_TARGETS[label];
     if (id) scrollToId(id);
   };
 
   return (
     <div data-screen-label="urbanROOM — Marketing site">
-      <Header active={active} onNav={handleNav} onLight={true} />
+      <Header active={active} onNav={handleNav} onMenu={() => setMenuOpen(true)} onLight={true} />
       <main>
         <Hero />
         <Expertise />
@@ -724,6 +896,9 @@ function App() {
       <Footer />
       <Drawer open={!!project} onClose={() => setProject(null)} width={760}>
         <ProjectDetail p={project} />
+      </Drawer>
+      <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} width={420}>
+        <NavMenu active={active} onNav={handleNav} />
       </Drawer>
     </div>);
 
