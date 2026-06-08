@@ -1,614 +1,735 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Urban Room Co., Ltd. — Develop with Confidence</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --orange:       #F97316;
-      --orange-dark:  #EA6C0A;
-      --orange-light: #FEF3E2;
-      --dark:         #1C1C1E;
-      --gray:         #6B7280;
-      --white:        #FFFFFF;
-      --border:       #E8DECE;
-      --cream:        #FFF9F2;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--cream);
-      color: var(--dark);
-      font-family: 'Sarabun', sans-serif;
-      font-size: 16px;
-      line-height: 1.9;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── NAV ─────────────────────────────────────────── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      background: rgba(255, 249, 242, 0.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo img {
-      height: 36px;
-      width: 36px;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--dark);
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--orange); }
-
-    /* ─── INNER WRAPPER ──────────────────────────────── */
-    .inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* ─── SECTION BASE ───────────────────────────────── */
-    .section {
-      padding: 80px 24px;
-    }
-
-    .section-label {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 800;
-      line-height: 1.15;
-      color: var(--dark);
-      margin-bottom: 16px;
-    }
-
-    .section-desc {
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--gray);
-      max-width: 560px;
-      margin-bottom: 48px;
-    }
-
-    /* ─── HERO ────────────────────────────────────────── */
-    .hero {
-      background: var(--cream);
-      padding: 96px 24px 80px;
-      min-height: calc(100svh - 64px);
-      display: flex;
-      align-items: flex-end;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: end;
-    }
-
-    .hero-label {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 800;
-      line-height: 1.1;
-      color: var(--dark);
-      margin-bottom: 32px;
-    }
-
-    .hero-body {
-      font-size: 17px;
-      line-height: 1.75;
-      color: var(--gray);
-      margin-bottom: 40px;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: var(--orange);
-      color: var(--white);
-      padding: 14px 32px;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-primary:hover {
-      background: var(--orange-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
-    }
-
-    .hero-aside {
-      padding-bottom: 8px;
-    }
-
-    .hero-aside-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 16px;
-    }
-
-    .hero-aside-text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--gray);
-    }
-
-    /* ─── EXPERTISE ──────────────────────────────────── */
-    .expertise { background: var(--white); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .service-card {
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      background: var(--white);
-      padding: 36px 32px;
-      transition: all 0.25s;
-    }
-
-    .service-card:hover {
-      border-color: var(--orange);
-      box-shadow: 0 6px 24px rgba(180, 120, 50, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .service-num {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 20px;
-    }
-
-    .service-title {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--dark);
-      margin-bottom: 12px;
-    }
-
-    .service-desc {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #4B5563;
-    }
-
-    /* ─── WHY + PARTNERS ─────────────────────────────── */
-    .why { background: var(--cream); }
-
-    .split-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .why-list { list-style: none; }
-
-    .why-list li {
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 16px;
-      line-height: 1.75;
-      color: #4B5563;
-    }
-
-    .why-list li:first-child { border-top: 1px solid var(--border); }
-
-    .partners-list { list-style: none; }
-
-    .partner-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .partner-item:first-child { border-top: 1px solid var(--border); }
-
-    .partner-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--dark);
-    }
-
-    .partner-spec {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--gray);
-      white-space: nowrap;
-    }
-
-    /* ─── CONTACT ────────────────────────────────────── */
-    .contact { background: var(--dark); }
-
-    .contact .section-label { color: var(--orange); }
-    .contact .section-title { color: var(--white); }
-    .contact .section-desc  { color: rgba(255,255,255,0.55); }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 80px;
-      align-items: start;
-    }
-
-    .contact-info { display: flex; flex-direction: column; gap: 40px; }
-
-    .info-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 8px;
-    }
-
-    .info-value {
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .info-value a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-      transition: border-color 0.2s;
-    }
-
-    .info-value a:hover { border-color: var(--orange); color: var(--orange); }
-
-    .contact-form { display: flex; flex-direction: column; }
-
-    .form-row {
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      padding: 18px 0;
-    }
-
-    .form-row:first-child { border-top: 1px solid rgba(255,255,255,0.12); }
-
-    .form-row label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 8px;
-    }
-
-    .form-row input,
-    .form-row textarea {
-      width: 100%;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: 'Sarabun', sans-serif;
-      font-size: 16px;
-      color: var(--white);
-      resize: none;
-    }
-
-    .form-row input::placeholder,
-    .form-row textarea::placeholder { color: rgba(255,255,255,0.25); }
-
-    .form-row textarea { min-height: 96px; }
-
-    .btn-send {
-      align-self: flex-start;
-      margin-top: 32px;
-      background: var(--orange);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 999px;
-      font-family: 'Sarabun', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--white);
-      transition: all 0.2s;
-    }
-
-    .btn-send:hover {
-      background: var(--orange-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
-    }
-
-    /* ─── FOOTER ─────────────────────────────────────── */
-    footer {
-      background: #0F0F0F;
-      padding: 40px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .footer-left img {
-      height: 28px;
-      width: 28px;
-      opacity: 0.5;
-    }
-
-    .footer-copy {
-      font-size: 13px;
-      color: rgba(255,255,255,0.35);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-
-    .footer-social a {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-social a:hover { color: var(--orange); }
-
-    /* ─── REVEAL ─────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ─── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width: 900px) {
-      .hero-inner    { grid-template-columns: 1fr; gap: 48px; }
-      .services-grid { grid-template-columns: 1fr; }
-      .split-grid    { grid-template-columns: 1fr; gap: 56px; }
-      .contact-grid  { grid-template-columns: 1fr; gap: 56px; }
-    }
-
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .section   { padding: 60px 20px; }
-      .hero      { padding: 60px 20px; }
-      footer     { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>urbanROOM — Develop with confidence.</title>
+<style>
+/* =========================================================
+   URBAN ROOM — Design Tokens · System B / INTERLOCK
+   Sand · ink · clay  ·  Manrope + JetBrains Mono
+   --------------------------------------------------------- */
+
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ---------- Surface — warm sand spine (CI) ---------- */
+  --ur-bg:           #F2EDE3;
+  --ur-bg-soft:      #ECE5D6;
+  --ur-bg-muted:     #E3DAC6;
+  --ur-bg-bright:    #FAF6EC;
+  --ur-line:         #D4C9B0;
+  --ur-line-strong:  #BFB29A;
+
+  /* ---------- Ink (CI) ---------- */
+  --ur-ink:          #1B1A17;
+  --ur-ink-2:        #3A3631;
+  --ur-ink-3:        #6B6359;
+  --ur-ink-4:        #948B7E;
+
+  /* ---------- Accent — clay, sparingly (CI) ---------- */
+  --ur-accent:       #C2563A;
+  --ur-accent-soft:  #E8B8A6;
+  --ur-accent-deep:  #9A3F26;
+
+  /* Semantic states */
+  --ur-success:      #4E6B3D;
+  --ur-warn:         #B98432;
+  --ur-error:        #9A3F26;
+
+  /* Semantic — bind these, not the raw palette */
+  --ur-fg:           var(--ur-ink);
+  --ur-fg-muted:     var(--ur-ink-3);
+  --ur-surface:      var(--ur-bg);
+
+  /* ---------- Type (CI) ---------- */
+  --ur-display: "Archivo", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --ur-sans:    "Manrope", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --ur-mono:    "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Type scale */
+  --ur-fs-xs:   11px;
+  --ur-fs-sm:   13px;
+  --ur-fs-base: 15px;
+  --ur-fs-md:   17px;
+  --ur-fs-lg:   20px;
+  --ur-fs-xl:   28px;
+  --ur-fs-2xl:  40px;
+  --ur-fs-3xl:  56px;
+  --ur-fs-4xl:  72px;
+  --ur-fs-5xl:  96px;
+
+  /* Spacing — 8pt with 4pt half-step */
+  --ur-s-1: 4px;  --ur-s-2: 8px;  --ur-s-3: 12px;
+  --ur-s-4: 16px; --ur-s-5: 24px; --ur-s-6: 32px;
+  --ur-s-7: 48px; --ur-s-8: 64px; --ur-s-9: 96px; --ur-s-10: 144px;
+
+  /* Radii — subtle */
+  --ur-r-0: 0;
+  --ur-r-1: 2px;
+  --ur-r-2: 4px;
+  --ur-r-3: 8px;
+  --ur-r-pill: 999px;
+
+  /* Borders */
+  --ur-border-hair: 1px solid var(--ur-line);
+  --ur-border-soft: 1px solid var(--ur-line);
+  --ur-border-ink:  1px solid var(--ur-ink);
+
+  /* Shadows */
+  --ur-shadow-0: none;
+  --ur-shadow-1: 0 1px 0 rgba(27,26,23,0.05);
+  --ur-shadow-2: 0 8px 24px -16px rgba(27,26,23,0.18);
+  --ur-shadow-3: 0 24px 48px -28px rgba(27,26,23,0.25);
+
+  /* Motion */
+  --ur-ease:     cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ur-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ur-dur-1: 120ms;
+  --ur-dur-2: 220ms;
+  --ur-dur-3: 420ms;
+  --ur-dur-4: 800ms;
+
+  --ur-container: 1240px;
+  --ur-gutter: 32px;
+}
+
+/* =========================================================
+   Semantic typography — Archivo display / Manrope text
+   ========================================================= */
+.ur-display { font-family: var(--ur-display); font-weight: 800; font-size: var(--ur-fs-5xl); line-height: 0.92; letter-spacing: -0.04em; color: var(--ur-ink); }
+.ur-h1      { font-family: var(--ur-display); font-weight: 800; font-size: var(--ur-fs-4xl); line-height: 0.94; letter-spacing: -0.04em; }
+.ur-h2      { font-family: var(--ur-display); font-weight: 700; font-size: var(--ur-fs-3xl); line-height: 1.0;  letter-spacing: -0.03em; }
+.ur-h3      { font-family: var(--ur-display); font-weight: 700; font-size: var(--ur-fs-2xl); line-height: 1.08; letter-spacing: -0.025em; }
+.ur-h4      { font-family: var(--ur-display); font-weight: 700; font-size: var(--ur-fs-xl);  line-height: 1.2;  letter-spacing: -0.015em; }
+.ur-eyebrow { font-family: var(--ur-sans);    font-weight: 600; font-size: var(--ur-fs-xs); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ur-ink-3); }
+.ur-body    { font-family: var(--ur-sans);    font-weight: 400; font-size: var(--ur-fs-base); line-height: 1.6; color: var(--ur-ink-2); }
+.ur-lede    { font-family: var(--ur-sans);    font-weight: 400; font-size: var(--ur-fs-md);  line-height: 1.55; color: var(--ur-ink-2); }
+.ur-caption { font-family: var(--ur-sans);    font-size: var(--ur-fs-sm); color: var(--ur-ink-3); }
+.ur-mono    { font-family: var(--ur-mono);    font-size: var(--ur-fs-sm); color: var(--ur-ink-2); letter-spacing: 0.02em; }
+
+.ur-root { background: var(--ur-bg); color: var(--ur-fg); font-family: var(--ur-sans); font-size: var(--ur-fs-base); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.ur-root *, .ur-root *::before, .ur-root *::after { box-sizing: border-box; }
+.ur-rule       { height: 1px; background: var(--ur-line); border: 0; }
+.ur-rule--ink  { height: 1px; background: var(--ur-ink);  border: 0; }
+
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--ur-bg); color: var(--ur-ink); font-family: var(--ur-sans); }
+  ::selection { background: var(--ur-ink); color: var(--ur-bg); }
+  a { color: inherit; }
+
+  /* ---------- Section system ---------- */
+  .ur-section          { padding: 96px 40px; }
+  .ur-section__inner   { max-width: 1320px; margin: 0 auto; }
+  .ur-section__head    { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 48px; gap: 32px; flex-wrap: wrap; }
+  .ur-section__title   { font-family: var(--ur-display); font-weight: 700; font-size: 32px; line-height: 1.05; letter-spacing: -0.025em; color: var(--ur-ink); margin: 0; }
+  .ur-section__link    { font-family: var(--ur-sans); font-weight: 500; font-size: 13px; color: var(--ur-ink); text-decoration: none; border-bottom: 1px solid var(--ur-ink); padding-bottom: 3px; display: inline-flex; align-items: center; gap: 8px; transition: gap 220ms var(--ur-ease); }
+  .ur-section__link:hover { gap: 14px; }
+  .ur-card-hover { transition: transform 320ms var(--ur-ease); }
+  .ur-card-hover:hover { transform: translateY(-4px); }
+
+  @media (max-width: 900px) {
+    .ur-section        { padding: 72px 24px; }
+    .ur-section__head  { margin-bottom: 32px; }
+    .ur-section__title { font-size: 26px; }
+  }
+</style>
 </head>
-<body>
+<body class="ur-root">
+<div id="root"></div>
 
-<!-- ─── NAV ───────────────────────────────────────────── -->
-<nav>
-  <a href="#home" aria-label="Urban Room home">
-    <img src="Company logo.png" alt="Urban Room" style="height:36px;width:36px;display:block;">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#expertise">Expertise</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-<!-- ─── HERO ──────────────────────────────────────────── -->
-<section class="hero" id="home">
-  <div class="hero-inner">
-    <div>
-      <p class="hero-label reveal">Urban Room Co., Ltd.</p>
-      <h1 class="hero-title reveal">Develop with<br>Confidence</h1>
-      <p class="hero-body reveal">Urban Room and partners are pioneers in real estate development and urban content services by applying our multi expertise from various professionals.</p>
-      <a href="#contact" class="btn-primary reveal">Get in Touch</a>
-    </div>
-    <div class="hero-aside reveal">
-      <p class="hero-aside-label">Based in</p>
-      <p class="hero-aside-text">Khon Kaen, Thailand</p>
-    </div>
-  </div>
-</section>
+<script type="text/babel" data-presets="react">
 
-<!-- ─── EXPERTISE ─────────────────────────────────────── -->
-<section class="section expertise" id="expertise">
-  <div class="inner">
-    <p class="section-label reveal">Expertise</p>
-    <h2 class="section-title reveal">What We Do</h2>
-    <p class="section-desc reveal">Research, planning, and financial analysis — applied to real places and real decisions.</p>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <p class="service-num">01</p>
-        <h3 class="service-title">Urban Study and City Branding</h3>
-        <p class="service-desc">Research and studies supporting policy decisions and estate development visions.</p>
-      </div>
-      <div class="service-card reveal">
-        <p class="service-num">02</p>
-        <h3 class="service-title">Master Planning</h3>
-        <p class="service-desc">Design services for building groups and large real estate projects, including architectural details and participation processes.</p>
-      </div>
-      <div class="service-card reveal">
-        <p class="service-num">03</p>
-        <h3 class="service-title">Feasibility and Market Study</h3>
-        <p class="service-desc">Financial analysis providing FIRR, EIRR, SROI metrics for investor decision-making.</p>
-      </div>
-    </div>
-  </div>
-</section>
+/* global React */
+const { useState } = React;
 
-<!-- ─── WHY + PARTNERS ────────────────────────────────── -->
-<section class="section why" id="why">
-  <div class="inner">
-    <div class="split-grid">
-      <div>
-        <p class="section-label reveal">Why Urban Room</p>
-        <h2 class="section-title reveal">Built on Collaboration</h2>
-        <ul class="why-list">
-          <li class="reveal">Experienced team in architectural design and development with understanding of urban trends.</li>
-          <li class="reveal">Collaborative approach with professional partners utilizing deliberative and foresight techniques.</li>
-        </ul>
-      </div>
-      <div>
-        <p class="section-label reveal">Partners</p>
-        <h2 class="section-title reveal">Our Network</h2>
-        <ul class="partners-list">
-          <li class="partner-item reveal">
-            <span class="partner-name">3DOT DESIGN</span>
-            <span class="partner-spec">Urban Planning &amp; Urban Design</span>
-          </li>
-          <li class="partner-item reveal">
-            <span class="partner-name">Z56</span>
-            <span class="partner-spec">Architecture</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+/* ---------- Eyebrow ---------- */
+function Eyebrow({ children }) {
+  return (
+    <span style={{ fontFamily: "var(--ur-sans)", fontWeight: 600, fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--ur-ink-3)" }}>{children}</span>);
 
-<!-- ─── CONTACT ───────────────────────────────────────── -->
-<section class="section contact" id="contact">
-  <div class="inner">
-    <p class="section-label reveal">Contact</p>
-    <h2 class="section-title reveal">Let's Work Together</h2>
-    <p class="section-desc reveal">Reach out with your project or question.</p>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="reveal">
-          <p class="info-label">Address</p>
-          <p class="info-value">92/18 Mittrapap Rd.<br>Nai Mueang, Mueang Khon Kaen<br>Khon Kaen 40000</p>
+}
+
+/* ---------- Button ---------- */
+function Button({ variant = "primary", children, onClick, icon }) {
+  const base = {
+    fontFamily: "var(--ur-sans)", fontWeight: 500, fontSize: 14, letterSpacing: "0.01em",
+    padding: "13px 24px", borderRadius: 2, border: 0, cursor: "pointer",
+    display: "inline-flex", alignItems: "center", gap: 10,
+    transition: "all 220ms cubic-bezier(.22,.61,.36,1)"
+  };
+  const styles = {
+    primary: { ...base, background: "var(--ur-ink)", color: "#fff" },
+    ghost: { ...base, background: "transparent", color: "var(--ur-ink)", border: "1px solid var(--ur-ink)" },
+    accent: { ...base, background: "var(--ur-accent)", color: "#fff" },
+    link: { ...base, background: "transparent", color: "var(--ur-ink)", padding: "4px 0", borderRadius: 0, borderBottom: "1px solid var(--ur-accent)" }
+  };
+  return (
+    <button style={styles[variant]} onClick={onClick}
+    onMouseEnter={(e) => {if (variant === "primary") e.currentTarget.style.background = "var(--ur-navy-2)";}}
+    onMouseLeave={(e) => {if (variant === "primary") e.currentTarget.style.background = "var(--ur-ink)";}}>
+      {children}{icon && <span>{icon}</span>}
+    </button>);
+
+}
+
+/* ---------- Field ---------- */
+function Field({ label, type = "text", value, onChange, multiline }) {
+  const sty = {
+    fontFamily: "var(--ur-sans)", fontSize: 14, padding: "12px 14px",
+    border: "1px solid var(--ur-line-strong)", background: "#fff", color: "var(--ur-ink)",
+    borderRadius: 2, outline: 0, width: "100%", boxSizing: "border-box"
+  };
+  return (
+    <label style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <span style={{ fontFamily: "var(--ur-sans)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ur-ink-3)", fontWeight: 600 }}>{label}</span>
+      {multiline ?
+      <textarea style={{ ...sty, minHeight: 110, resize: "vertical" }} value={value} onChange={(e) => onChange(e.target.value)} /> :
+      <input style={sty} type={type} value={value} onChange={(e) => onChange(e.target.value)} />}
+    </label>);
+
+}
+
+/* ---------- Chip ---------- */
+function Chip({ active, onClick, children }) {
+  return (
+    <button onClick={onClick} style={{
+      padding: "8px 16px", border: `1px solid ${active ? "var(--ur-ink)" : "var(--ur-line-strong)"}`,
+      borderRadius: 999, fontFamily: "var(--ur-sans)", fontSize: 13,
+      color: active ? "#fff" : "var(--ur-ink-2)", background: active ? "var(--ur-ink)" : "#fff",
+      cursor: "pointer", transition: "all 220ms"
+    }}>{children}</button>);
+
+}
+
+/* ---------- Plate — real photography, or tone gradient as fallback ---------- */
+function Plate({ ratio = "16/10", tone = "navy", src, overlay, fill }) {
+  const tones = {
+    navy: "linear-gradient(180deg,#3a4a66 0%,#1A2438 100%)",
+    earth: "linear-gradient(180deg,#7d6855 0%,#3d2f24 100%)",
+    forest: "linear-gradient(180deg,#5a6d5f 0%,#2c3e34 100%)",
+    rose: "linear-gradient(180deg,#9c6a5e 0%,#4d2e26 100%)",
+    sand: "linear-gradient(180deg,#a89678 0%,#5b4d35 100%)",
+    grey: "linear-gradient(180deg,#7a8290 0%,#34404f 100%)",
+    stone: "linear-gradient(180deg,#b8b0a2 0%,#766e60 100%)"
+  };
+  const bg = src
+    ? { backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" }
+    : { background: tones[tone] || tones.navy };
+  return (
+    <div style={{ aspectRatio: ratio === "auto" ? undefined : ratio, height: ratio === "auto" ? "100%" : undefined, ...bg, position: "relative", overflow: "hidden", width: "100%" }}>
+      {fill}
+      {overlay}
+    </div>);
+
+}
+
+/* ---------- Tiny SVG icons (Lucide-style 1.5px) ---------- */
+const Icon = {
+  arrow: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>,
+  pin: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1118 0z" /><circle cx="12" cy="10" r="3" /></svg>,
+  mail: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" /><path d="M3 7l9 6 9-6" /></svg>,
+  ig: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="4" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" /></svg>,
+  yt: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="3" /><path d="M10 9.5v5l4-2.5z" /></svg>,
+  fb: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V6.5A1.5 1.5 0 0115.5 5H17V2h-2.5A4.5 4.5 0 0010 6.5V9H8v3h2v10h4V12h2.5l.5-3H14z" /></svg>,
+  download: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14" /></svg>,
+  menu: (s = 18) => <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h16M4 12h16M4 17h10" /></svg>
+};
+
+Object.assign(window, { Eyebrow, Button, Field, Chip, Plate, Icon });
+
+/* ---------- Wordmark (CI logo) ---------- */
+function Wordmark({ size = 22, color = "var(--ur-ink)", variant = "inline" }) {
+  const stacked = variant === "stacked";
+  return (
+    <span
+      aria-label="urbanROOM"
+      style={{
+        fontFamily: "Archivo, system-ui, sans-serif",
+        color,
+        letterSpacing: "-0.04em",
+        lineHeight: stacked ? 0.95 : 1,
+        display: stacked ? "flex" : "inline-flex",
+        flexDirection: stacked ? "column" : "row",
+        alignItems: stacked ? "center" : "baseline",
+        fontSize: size,
+        textTransform: "none"
+      }}>
+      
+      <span style={{ fontWeight: 300 }}>urban</span>
+      <span style={{ fontWeight: 900 }}>ROOM</span>
+    </span>);
+
+}
+Object.assign(window, { Wordmark });
+
+/* ---------- Drawer (slide-in panel) ---------- */
+function Drawer({ open, onClose, children, width = 720 }) {
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {window.removeEventListener("keydown", onKey);document.body.style.overflow = prev;};
+  }, [open, onClose]);
+  return (
+    <>
+      <div onClick={onClose} style={{
+        position: "fixed", inset: 0, background: "rgba(27,26,23,0.55)",
+        opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
+        transition: "opacity 280ms ease", zIndex: 50
+      }} />
+      <div role="dialog" aria-modal="true" style={{
+        position: "fixed", top: 0, right: 0, bottom: 0,
+        width, maxWidth: "94vw", background: "var(--ur-bg)",
+        transform: open ? "translateX(0)" : "translateX(100%)",
+        transition: "transform 360ms cubic-bezier(.22,.61,.36,1)",
+        zIndex: 51, overflow: "auto", boxShadow: "-24px 0 60px -20px rgba(27,26,23,0.25)"
+      }}>
+        <div style={{ position: "sticky", top: 0, height: 0, zIndex: 3, pointerEvents: "none" }}>
+          <button onClick={onClose} aria-label="Close" style={{
+            position: "absolute", top: 16, right: 16, pointerEvents: "auto",
+            width: 38, height: 38, borderRadius: 999, border: 0, cursor: "pointer",
+            background: "rgba(27,26,23,0.72)", color: "#fff",
+            display: "grid", placeItems: "center"
+          }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
         </div>
-        <div class="reveal">
-          <p class="info-label">Email</p>
-          <p class="info-value"><a href="mailto:info@urbanroom.org">info@urbanroom.org</a></p>
+        {children}
+      </div>
+    </>);
+
+}
+Object.assign(window, { Drawer });
+
+
+/* global React, Eyebrow, Button, Field, Chip, Plate, Icon */
+
+const NAV = [
+{ label: "Expertise", href: "#expertise" },
+{ label: "Projects", href: "#projects" },
+{ label: "Channel", href: "#channel" },
+{ label: "Contact", href: "#contact" }];
+
+
+const SERVICES = [
+{ n: "01", title: "Urban Study & City Branding",
+  body: "Research and studies that support policy decisions and inform estate-development visions for cities and districts." },
+{ n: "02", title: "Master Planning",
+  body: "Design for building groups and large real-estate projects — including architectural detail and participation processes." },
+{ n: "03", title: "Feasibility & Market Study",
+  body: "Financial analysis providing FIRR, EIRR, and SROI metrics to support investor and stakeholder decision-making." },
+{ n: "04", title: "Content & Media",
+  body: "Films, talks, and editorial content about cities and the built environment — published on the Urban Room channel and others." }];
+
+
+const PLAYLISTS = [
+{ title: "Case Study", meta: "Playlist", tone: "earth", vid: "6USW0OG-6m8", list: "PLZHn8RXF4EzIop4ImH_a6P6UI08HNWsLN" },
+{ title: "Urban Change Podcast", meta: "Playlist", tone: "navy", vid: "BNBuPk-giAg", list: "PLZHn8RXF4EzJbUsL4nhEbJUNqHbXvs5ig" },
+{ title: "City Land", meta: "Playlist", tone: "forest", vid: "xZJE3pSoHvg", list: "PLZHn8RXF4EzLD9qVDE2U6pvCGbmoKFop2" },
+{ title: "Khon Kaen City", meta: "Playlist", tone: "stone", vid: "vngm0ngFfYA", list: "PLZHn8RXF4EzJjIMt_tXl-juH6sGstEN92" }];
+
+
+const PROJECTS = [
+{ title: "Khon Kaen Innovation District", subtitle: "Mixed-use innovation precinct", year: "2024", city: "Khon Kaen", tag: "MASTER PLAN", tone: "navy",
+  cardImg: "assets/images/projects/khon-kaen-innovation-district/card.jpg", heroImg: "assets/images/projects/khon-kaen-innovation-district/hero.jpg",
+  role: ["Master plan", "Urban design"], client: "NIA & Healthy Sapce Forum", area: "Nongwang Trachu Park and Sichan District",
+  desc: "A district plan reframing the learning comunity as a working innovation precinct. Mixed-use blocks sit on a porous public spine that doubles as flood storage and a learning circuit for the city's universitie." },
+{ title: "Walkable Kangsadan", subtitle: "Footpath retrofit and street design", year: "2023", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "earth",
+  cardImg: "assets/images/projects/walkable-kangsadan/card.jpg", heroImg: "assets/images/projects/walkable-kangsadan/hero.jpg",
+  role: ["Street design", "Public engagement"], client: "CEA Khon Kaen", area: "Kangsadan Neighbourhood",
+  desc: "A 1.2 km retrofit of the city's most-walked street \u2014 widened sidewalks, calmed crossings, sequenced trees, and seating designed with the shop owners who use the block every day." },
+{ title: "ISAN Showcase", subtitle: "Isan Creative Festival 2023", year: "2023", city: "Khon Kaen", tag: "EXHIBITION", tone: "rose",
+  cardImg: "assets/images/projects/isan-showcase/card.jpg", heroImg: "assets/images/projects/isan-showcase/hero.jpg",
+  role: ["Exhibition design", "Wayfinding"], client: "CEA Khon Kaen", area: "Treasury Museum",
+  desc: "A festival-scale exhibition mapping Isan's craft, agriculture, and city-making lineage \u2014 staged at the Treasury Museum with a wayfinding and lighting systems." },
+{ title: "Sukhothai Learning Center", subtitle: "Civic learning and heritage hub", year: "2023", city: "Sukhothai", tag: "ARCHITECTURE", tone: "sand",
+  cardImg: "assets/images/projects/sukhothai-learning-center/card.jpg", heroImg: "assets/images/projects/sukhothai-learning-center/hero.jpg",
+  role: ["Architecture", "Heritage strategy"], client: "Sukhothai PAO", area: "",
+  desc: "A new civic building threaded into the heritage edge of old Sukhothai \u2014 long roofs, generous shade, and reading rooms that open onto a teaching landscape of the city's water lineage." },
+{ title: "Eco Innovation Park", subtitle: "Industrial park feasibility", year: "2022", city: "Payao", tag: "FEASIBILITY", tone: "forest",
+  cardImg: "assets/images/projects/eco-innovation-park/card.jpg", heroImg: "assets/images/projects/eco-innovation-park/hero.jpg",
+  role: ["Feasibility", "Master plan", "FIRR / SROI"], client: "Private developer", area: "",
+  desc: "Feasibility study and master plan for a circular-industry park. FIRR, EIRR, and SROI modelling alongside a phased build-out that lets the site begin operating before the masterplan completes." },
+{ title: "Pocket Park", subtitle: "Neighbourhood public space", year: "2022", city: "Khon Kaen", tag: "PUBLIC REALM", tone: "grey",
+  cardImg: "assets/images/projects/pocket-park/card.jpg", heroImg: "assets/images/projects/pocket-park/hero.jpg",
+  role: ["Landscape", "Co-design"], client: "Khon Kaen Municipality", area: "",
+  desc: "A residual lot turned into a neighbourhood pocket park \u2014 designed in three co-design sessions with the immediate residents, who chose every plant, every bench, and the rule against fencing." },
+{ title: "Phetchabun City", subtitle: "Comprehensive Planing", year: "2022", city: "Phetchabun", tag: "CITY STUDY", tone: "navy",
+  cardImg: "assets/images/projects/phetchabun-city/card.jpg", heroImg: "assets/images/projects/phetchabun-city/hero.jpg",
+  role: ["Urban planning"], client: "Phetchabun Municipality",
+  desc: "A comprehensive plan reframing Phetchabun around its highland identity \u2014 cool climate, slow agriculture, mountain culture \u2014 with policy recommendations on activities and developments." },
+{ title: "Lam Luk Ka City", subtitle: "Comprehensive Planing", year: "2021", city: "Pathum Thani", tag: "MASTER PLAN", tone: "earth",
+  cardImg: "assets/images/projects/lam-luk-ka-city/card.jpg", heroImg: "assets/images/projects/lam-luk-ka-city/hero.jpg",
+  role: ["Urban planning"], client: "Bueng Yitho Municipality", area: "540 ha",
+  desc: "A district plan for a fast-suburbanising edge of Bangkok \u2014 protecting the canal grid as the spatial spine and weaving new residential blocks into it as a slow-growth alternative to gated estates with policy recommendations on activities and developments." }];
+
+
+/* ============================ DETAIL VIEWS (inside Drawer) ============================ */
+function NavMenu({ active, onNav }) {
+  return (
+    <div style={{ padding: "88px 56px 56px" }}>
+      <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--ur-ink-3)", marginBottom: 28 }}>Menu</div>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, borderTop: "1px solid var(--ur-ink)" }}>
+        {NAV.map((n) =>
+        <li key={n.label} style={{ borderBottom: "1px solid var(--ur-line)" }}>
+            <button onClick={() => onNav(n.label)} style={{
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+            width: "100%", padding: "22px 0", background: "transparent", border: 0, cursor: "pointer",
+            fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 32,
+            letterSpacing: "-0.025em", color: active === n.label ? "var(--ur-accent)" : "var(--ur-ink)",
+            textAlign: "left", lineHeight: 1
+          }}>
+              <span>{n.label}</span>
+              <span style={{ color: "var(--ur-ink-3)", display: "flex" }}>{Icon.arrow(20)}</span>
+            </button>
+          </li>
+        )}
+      </ul>
+      <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--ur-line)", display: "flex", flexDirection: "column", gap: 18 }}>
+        <a href="mailto:info@urbanroom.org"
+        style={{ fontFamily: "var(--ur-mono)", fontSize: 13, color: "var(--ur-ink)", textDecoration: "none", borderBottom: "1px solid var(--ur-ink)", paddingBottom: 2, alignSelf: "flex-start" }}>
+          info@urbanroom.org
+        </a>
+        <div style={{ display: "flex", gap: 24, fontFamily: "var(--ur-sans)", fontSize: 13, color: "var(--ur-ink-3)" }}>
+          <a href="https://www.instagram.com/urbanroomstudio" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Instagram</a>
+          <a href="https://www.facebook.com/UrbanroomTH" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Facebook</a>
+          <a href="https://www.youtube.com/@Urbanroom2023" target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>YouTube</a>
         </div>
-        <div class="reveal">
-          <p class="info-label">Social</p>
-          <p class="info-value">
-            <a href="https://youtube.com/@Urbanroom2023" target="_blank" rel="noopener">YouTube ↗</a><br>
-            <a href="https://facebook.com/urbanroomth" target="_blank" rel="noopener">Facebook ↗</a>
+      </div>
+    </div>);
+
+}
+Object.assign(window, { NavMenu });
+
+function ProjectDetail({ p }) {
+  if (!p) return null;
+  const Row = ({ k, v }) =>
+  <>
+      <dt style={{ color: "var(--ur-ink-3)", fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase" }}>{k}</dt>
+      <dd style={{ margin: 0 }}>{v}</dd>
+    </>;
+
+  return (
+    <article>
+      <Plate tone={p.tone} src={p.heroImg} ratio="16/10" />
+      <div style={{ padding: "48px 56px 64px" }}>
+        <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ur-ink-3)" }}>{p.tag} · {p.year}</div>
+        <h2 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.03em", lineHeight: 1.05, margin: "14px 0 10px" }}>{p.title}</h2>
+        <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, color: "var(--ur-ink-2)", margin: "0 0 32px" }}>{p.subtitle}</p>
+        <div style={{ borderTop: "1px solid var(--ur-ink)", paddingTop: 26, marginBottom: 32 }}>
+          <dl style={{ display: "grid", gridTemplateColumns: "140px 1fr", rowGap: 14, margin: 0, fontFamily: "var(--ur-sans)", fontSize: 14, alignItems: "baseline" }}>
+            <Row k="Client" v={p.client} />
+            <Row k="Location" v={p.city} />
+            {p.area && <Row k="Area" v={p.area} />}
+            <Row k="Our role" v={p.role && p.role.join(" \u00b7 ")} />
+          </dl>
+        </div>
+        <p style={{ fontFamily: "var(--ur-sans)", fontSize: 16, lineHeight: 1.7, color: "var(--ur-ink)", margin: 0 }}>{p.desc}</p>
+        <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--ur-line)" }}>
+          <a href={`mailto:info@urbanroom.org?subject=${encodeURIComponent("About " + p.title)}`}
+          style={{ display: "inline-flex", alignItems: "center", gap: 10,
+            fontFamily: "var(--ur-sans)", fontSize: 14, color: "var(--ur-ink)",
+            textDecoration: "none", borderBottom: "1px solid var(--ur-ink)", paddingBottom: 3 }}>
+            Talk to us about a project like this {Icon.arrow(14)}
+          </a>
+        </div>
+      </div>
+    </article>);
+
+}
+
+Object.assign(window, { ProjectDetail });
+
+/* ============================ HEADER ============================ */
+function Header({ active = "Expertise", onNav, onLight = false }) {
+  const fg = onLight ? "#fff" : "var(--ur-ink)";
+  const dim = onLight ? "rgba(255,255,255,0.65)" : "var(--ur-ink-3)";
+  const border = onLight ? "#fff" : "var(--ur-ink)";
+  return (
+    <header style={{
+      position: "absolute", top: 0, left: 0, right: 0, zIndex: 20, background: "transparent"
+    }}>
+      <div style={{
+        maxWidth: 1320, margin: "0 auto", padding: "22px 40px",
+        display: "flex", alignItems: "center", gap: 32
+      }}>
+        <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+           style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <Wordmark size={26} color={fg} />
+        </a>
+        <nav style={{ display: "flex", gap: 32, marginLeft: "auto" }}>
+          {NAV.map(n => (
+            <a key={n.label} href={n.href} onClick={(e) => { e.preventDefault(); onNav?.(n.label); }}
+               style={{
+                 fontFamily: "var(--ur-sans)", fontSize: 13, fontWeight: 400,
+                 color: active === n.label ? fg : dim,
+                 textDecoration: "none", paddingBottom: 2,
+                 borderBottom: active === n.label ? `1px solid ${border}` : "1px solid transparent",
+                 transition: "color 220ms, border-color 220ms"
+               }}>{n.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+/* ============================ HERO ============================ */
+const HERO_BGS = [
+  "assets/images/hero/hero-01.jpg",
+  "assets/images/hero/hero-02.jpg",
+  "assets/images/hero/hero-03.jpg",
+  "assets/images/hero/hero-04.jpg"];
+
+function Hero() {
+  const [idx, setIdx] = React.useState(0);
+  React.useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_BGS.length), 5500);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <section style={{ position: "relative", height: "100vh", minHeight: 640, maxHeight: 960, overflow: "hidden" }}>
+      {/* rotating background images */}
+      {HERO_BGS.map((src, i) =>
+      <div key={src} style={{ position: "absolute", inset: 0, opacity: i === idx ? 1 : 0, transition: "opacity 1400ms ease", backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+      )}
+      {/* top vignette so header reads */}
+      <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 180, background: "linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)", pointerEvents: "none" }} />
+      {/* bottom gradient so caption is readable */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.45) 100%)", pointerEvents: "none" }} />
+      {/* caption */}
+      <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 40px 56px" }}>
+        <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+          {/* slide indicator */}
+          <div style={{ display: "flex", gap: 8 }}>
+            {HERO_BGS.map((_, i) =>
+            <button key={i} onClick={() => setIdx(i)} aria-label={`Slide ${i + 1}`} style={{ width: 32, height: 2, background: i === idx ? "#fff" : "rgba(255,255,255,0.3)", border: 0, padding: 0, cursor: "pointer", transition: "background 400ms" }} />
+            )}
+          </div>
+        </div>
+      </div>
+    </section>);
+
+}
+
+/* ============================ EXPERTISE — compact strip ============================ */
+function Expertise() {
+  return (
+    <section id="expertise" style={{ background: "var(--ur-bg)", padding: "80px 40px", borderTop: "1px solid var(--ur-line)", borderBottom: "1px solid var(--ur-line)" }}>
+      <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 2.2fr", gap: 56, alignItems: "baseline", marginBottom: 36 }}>
+          <h2 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 32, letterSpacing: "-0.025em", lineHeight: 1.05, margin: 0 }}>
+            What&nbsp;we&nbsp;do.
+          </h2>
+          <p style={{ fontFamily: "var(--ur-sans)", fontSize: 15, color: "var(--ur-ink-2)", lineHeight: 1.55, margin: 0, maxWidth: 64 + "ch" }}>
+            Four practices that move a city from idea to a buildable plan — research, design, finance, and the editorial work that surrounds it.
           </p>
         </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, borderTop: "1px solid var(--ur-ink)", paddingTop: 24 }}>
+          {SERVICES.map((s) =>
+          <div key={s.n} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <span style={{ fontFamily: "var(--ur-mono)", fontSize: 11, color: "var(--ur-ink-3)", letterSpacing: "0.12em" }}>{s.n}</span>
+              <h3 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 17, color: "var(--ur-ink)", margin: 0, lineHeight: 1.2, letterSpacing: "-0.015em" }}>{s.title}</h3>
+              <p style={{ fontFamily: "var(--ur-sans)", fontSize: 13, color: "var(--ur-ink-3)", lineHeight: 1.55, margin: 0 }}>{s.body}</p>
+            </div>
+          )}
+        </div>
       </div>
-      <form class="contact-form reveal" onsubmit="return false;">
-        <div class="form-row">
-          <label for="f-name">Name</label>
-          <input type="text" id="f-name" name="name" autocomplete="name" placeholder="Your name">
+    </section>);
+
+}
+
+/* ============================ PROJECTS ============================ */
+function ProjectGrid({ onOpen }) {
+  const [showAll, setShowAll] = React.useState(false);
+  const list = showAll ? PROJECTS : PROJECTS.slice(0, 6);
+  return (
+    <section id="projects" className="ur-section" style={{ background: "var(--ur-bg-soft)" }}>
+      <div className="ur-section__inner">
+        <div className="ur-section__head">
+          <h2 className="ur-section__title">Selected projects.</h2>
+          <button onClick={() => setShowAll((v) => !v)}
+          style={{ background: "transparent", border: 0, padding: 0, cursor: "pointer",
+            fontFamily: "var(--ur-sans)", fontWeight: 500, fontSize: 13, color: "var(--ur-ink)",
+            borderBottom: "1px solid var(--ur-ink)", paddingBottom: 3,
+            display: "inline-flex", alignItems: "center", gap: 8 }}>
+            {showAll ? "Show selected" : `All projects (${PROJECTS.length})`} {Icon.arrow(14)}
+          </button>
         </div>
-        <div class="form-row">
-          <label for="f-email">Email</label>
-          <input type="email" id="f-email" name="email" autocomplete="email" placeholder="your@email.com">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", columnGap: 32, rowGap: 72 }}>
+          {list.map((p) =>
+          <button key={p.title} onClick={() => onOpen?.(p)} className="ur-card-hover"
+          style={{ display: "flex", flexDirection: "column", gap: 20, textDecoration: "none",
+            color: "inherit", background: "transparent", border: 0, padding: 0, cursor: "pointer", textAlign: "left" }}>
+              <Plate tone={p.tone} src={p.cardImg} ratio="4/5" />
+              <div>
+                <h3 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 19, color: "var(--ur-ink)", margin: "0 0 8px", letterSpacing: "-0.02em", lineHeight: 1.2 }}>{p.title}</h3>
+                <p style={{ fontFamily: "var(--ur-mono)", fontSize: 11, color: "var(--ur-ink-3)", margin: 0, letterSpacing: "0.06em", textTransform: "uppercase" }}>{p.city} · {p.year}</p>
+              </div>
+            </button>
+          )}
         </div>
-        <div class="form-row">
-          <label for="f-msg">Message</label>
-          <textarea id="f-msg" name="message" placeholder="Your message"></textarea>
+      </div>
+    </section>);
+
+}
+
+/* ============================ CHANNEL — content / videos ============================ */
+function Channel() {
+  return (
+    <section id="channel" className="ur-section" style={{ background: "var(--ur-bg)" }}>
+      <div className="ur-section__inner">
+        <div className="ur-section__head">
+          <h2 className="ur-section__title">On the channel.</h2>
+          <a href="https://www.youtube.com/@Urbanroom2023" target="_blank" rel="noreferrer" className="ur-section__link">Subscribe on YouTube {Icon.arrow(14)}</a>
         </div>
-        <button type="submit" class="btn-send">Send Message</button>
-      </form>
-    </div>
-  </div>
-</section>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", columnGap: 40, rowGap: 64 }}>
+          {PLAYLISTS.map((p) =>
+          <a key={p.title} href={`https://www.youtube.com/playlist?list=${p.list}`} target="_blank" rel="noreferrer" className="ur-card-hover"
+          style={{ display: "flex", flexDirection: "column", gap: 20, textDecoration: "none", color: "inherit" }}>
+              {/* stacked-card effect to signal a playlist */}
+              <div style={{ position: "relative" }}>
+                <div style={{ position: "absolute", top: -8, left: 10, right: 10, height: 16, background: "rgba(27,26,23,0.16)" }} />
+                <div style={{ position: "absolute", top: -4, left: 5, right: 5, height: 12, background: "rgba(27,26,23,0.28)" }} />
+                <div style={{ position: "relative" }}>
+                  <Plate tone={p.tone} src={`https://i.ytimg.com/vi/${p.vid}/maxresdefault.jpg`} ratio="16/9" />
+                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(27,26,23,0.12)" }}>
+                    <div style={{ width: 68, height: 68, borderRadius: 999, background: "rgba(255,255,255,0.94)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 10px 30px -14px rgba(0,0,0,0.5)" }}>
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--ur-ink)"><path d="M8 5v14l11-7L8 5z" /></svg>
+                    </div>
+                  </div>
+                  <span style={{ position: "absolute", right: 14, bottom: 14, display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--ur-mono)", fontSize: 11, color: "#fff", background: "rgba(27,26,23,0.78)", padding: "4px 10px", letterSpacing: "0.06em" }}>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 7h11M4 12h11M4 17h7M16 11l5 3-5 3z" /></svg>
+                    Playlist
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--ur-ink-3)", marginBottom: 10 }}>{p.meta}</div>
+                <h3 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 22, color: "var(--ur-ink)", margin: 0, letterSpacing: "-0.025em", lineHeight: 1.25 }}>{p.title}</h3>
+              </div>
+            </a>
+          )}
+        </div>
+      </div>
+    </section>);
 
-<!-- ─── FOOTER ────────────────────────────────────────── -->
-<footer>
-  <div class="footer-left">
-    <img src="Company logo.png" alt="Urban Room">
-    <span class="footer-copy">&copy; 2020 Urban Room Co., Ltd.</span>
-  </div>
-  <ul class="footer-social">
-    <li><a href="https://youtube.com/@Urbanroom2023" target="_blank" rel="noopener">YouTube</a></li>
-    <li><a href="https://facebook.com/urbanroomth" target="_blank" rel="noopener">Facebook</a></li>
-  </ul>
-</footer>
+}
 
-<script>
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('visible');
-      io.unobserve(entry.target);
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+/* ============================ PARTNERS / WHY ============================ */
+function Partners() {
+  return (
+    <section style={{ borderBottom: "1px solid var(--ur-line)" }}>
+      <div style={{ maxWidth: 1240, margin: "0 auto", padding: "112px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 96 }}>
+        <h2 style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 40, color: "var(--ur-ink)", margin: 0, letterSpacing: "-0.035em", lineHeight: 1.1 }}>
+          A multidisciplinary partnership, assembled per project.
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 0, borderTop: "1px solid var(--ur-ink)" }}>
+          {[{ n: "3DOT DESIGN", s: "Urban Planning & Urban Design" },
+          { n: "Z56", s: "Architecture" },
+          { n: "Open partner slot", s: "Landscape & Ecology" }].map((p) =>
+          <div key={p.n} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "24px 0", borderBottom: "1px solid var(--ur-line)" }}>
+              <span style={{ fontFamily: "var(--ur-display)", fontWeight: 700, fontSize: 22, color: "var(--ur-ink)", letterSpacing: "0.01em" }}>{p.n}</span>
+              <span style={{ fontFamily: "var(--ur-sans)", fontSize: 13, color: "var(--ur-ink-3)", textAlign: "right", maxWidth: 240 }}>{p.s}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>);
 
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
 
-  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), 150 + i * 120);
-  });
+/* ============================ FOOTER ============================ */
+function Footer() {
+  return (
+    <footer id="contact" style={{ background: "var(--ur-ink)", color: "rgba(255,255,255,0.85)" }}>
+      <div style={{ maxWidth: 1320, margin: "0 auto", padding: "96px 40px 40px" }}>
+        {/* primary contact band */}
+        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 48, alignItems: "start", paddingBottom: 64, borderBottom: "1px solid rgba(255,255,255,0.14)" }}>
+          <div>
+            <Wordmark size={32} color="#fff" />
+            <p style={{ fontFamily: "var(--ur-sans)", fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.72)", maxWidth: 36 + "ch", margin: "24px 0 0" }}>
+              Research, master planning, architecture, finance, and content — for cities and developers moving from vision to a buildable plan.
+            </p>
+          </div>
+          <div>
+            <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 14 }}>Studio</div>
+            <p style={{ fontFamily: "var(--ur-sans)", fontSize: 14, lineHeight: 1.6, color: "#fff", margin: 0 }}>
+              92/18 Mittrapap Rd.<br />Nai Mueang, Mueang Khon Kaen<br />Khon Kaen 40000, TH
+            </p>
+          </div>
+          <div>
+            <div style={{ fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 14 }}>Contact</div>
+            <a href="mailto:info@urbanroom.org"
+            style={{ fontFamily: "var(--ur-mono)", fontSize: 14, color: "#fff", textDecoration: "none", borderBottom: "1px solid var(--ur-accent-soft)", paddingBottom: 3, display: "inline-block" }}>
+              info@urbanroom.org
+            </a>
+            <div style={{ marginTop: 22, display: "flex", gap: 28, fontFamily: "var(--ur-sans)", fontSize: 13 }}>
+              <a href="https://www.instagram.com/urbanroomstudio" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>Instagram</a>
+              <a href="https://www.facebook.com/UrbanroomTH" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>Facebook</a>
+              <a href="https://www.youtube.com/@Urbanroom2023" target="_blank" rel="noreferrer" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>YouTube</a>
+            </div>
+          </div>
+        </div>
+        {/* lower row */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 32, paddingTop: 28, fontFamily: "var(--ur-mono)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
+          <span>urbanROOM Co., Ltd. · Khon Kaen, TH</span>
+          <span>© 2026 · EST. 2020</span>
+        </div>
+      </div>
+    </footer>);
+
+}
+
+Object.assign(window, { Header, Hero, Expertise, ProjectGrid, Channel, Partners, Footer });
+
+
+/* global React, ReactDOM, Header, Hero, Expertise, ProjectGrid, Channel, Partners, Footer */
+
+const NAV_TARGETS = { Expertise: "expertise", Projects: "projects", Channel: "channel", Contact: "contact" };
+
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const top = el.getBoundingClientRect().top + window.scrollY - 64;
+  window.scrollTo({ top, behavior: "smooth" });
+}
+
+function App() {
+  const [active, setActive] = useState("Expertise");
+  const [project, setProject] = useState(null);
+
+  const handleNav = (label) => {
+    setActive(label);
+    const id = NAV_TARGETS[label];
+    if (id) scrollToId(id);
+  };
+
+  return (
+    <div data-screen-label="urbanROOM — Marketing site">
+      <Header active={active} onNav={handleNav} onLight={true} />
+      <main>
+        <Hero />
+        <Expertise />
+        <ProjectGrid onOpen={setProject} />
+        <Channel />
+      </main>
+      <Footer />
+      <Drawer open={!!project} onClose={() => setProject(null)} width={760}>
+        <ProjectDetail p={project} />
+      </Drawer>
+    </div>);
+
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>
 </body>
 </html>
